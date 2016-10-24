@@ -1,24 +1,23 @@
 $(document).ready(function(){
-	var userSearch= "test";
-	/*$.ajax({
-		url: "https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions"+
-		"&rvprop=content&format=jsonfm", 
-		type: "GET",
-		dataType: "jsonp",
-		headers: {
-			"API-User-Agent": "Wikipedia-Viewer/0.1 (codepen.io/https://codepen.io/JHenderson219/pen/VKgLpy, hendersonj219@gmail.com)",
-			"Access-Control-Allow-Origin":"*",
-			"Access-Control-Allow-Origin": "True"
-		},
-		success: function(json1){
-		$("#jsonTest").html(json1)},
-		error: alert("Failed to get API Data!")
-	});*/
-	var jsonData = $.getJSON("https://en.wikipedia.org/w/api.php?action=query&format=json&gsrlimit=15&generator=search"
-		+"&origin=*&gsrsearch="+userSearch, function(data){
+	var userSearch = "programming%20language";
+	var keys;
+	var searchIndices=[];
+	var titleArray = [];
+	var data = $.getJSON("https://en.wikipedia.org/w/api.php?action=query&format=json&gsrlimit=15&"+
+		"generator=search&origin=*&gsrsearch="+userSearch, function(json){
+		data = json["query"]["pages"];
+		keys = Object.keys(data);
+		console.log(keys); //keys is an array of the user's search keys
+		keys.forEach(function(key){
+			titleArray.push(data[key]["title"]);
+		});
+		console.log(titleArray);
 	});
-	console.log(jsonData.length);
+	
 	$("#search").on("click", function(){
-		$("#jsonTest").html("<h3 class = 'text-center'>"+jsonData+"</h3>");
+		var titleStr = titleArray.join('<br>');
+		console.log(titleStr);
+		$("#jsonTest").html("<p class = 'text-center'>"+titleStr+"</p>");
+
 	});
 });
