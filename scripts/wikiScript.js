@@ -15,7 +15,7 @@ $(document).ready(function(){
 			keys.forEach(function(key){ //creates array of titles and HTML formatting
 			titleArray.push("<a class= 'animated fadeIn' target = '_blank' href = 'https://en.wikipedia.org/?curid="+key+"'>"+data[key]["title"]+"</a>");
 			});
-		titleStr = titleArray.join('<br>');
+		titleStr = titleArray.join('<br><br>');
 		$("#searchResults").html("<h3 class = 'text-center animated fadeIn'>"+titleStr+"</h3>");
 		});	
 	});
